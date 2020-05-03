@@ -20,7 +20,7 @@ import com.vaadin.flow.router.Route;
 /**
  * The main view contains a button and a click listener.
  */
-@Route(value = "users", layout=MainLayout.class)
+@Route(value = Views.USER_LIST_VIEW, layout=MainLayout.class)
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 public class UserListView extends VerticalLayout {
@@ -57,7 +57,7 @@ public class UserListView extends VerticalLayout {
         userGrid.addSelectionListener(selectionEvent -> {
          selectionEvent.getFirstSelectedItem().ifPresent(user -> {
          Notification.show(user.getUsername() + " is selected");
-         userGrid.getUI().get().navigate(UserDetailView.class, user.getId());
+         userGrid.getUI().get().navigate(UserDetailsView.class, user.getId());
          });
         }) ;
         
@@ -66,7 +66,7 @@ public class UserListView extends VerticalLayout {
 		        "Create User");
 		createButton.addClickListener(e ->
 		{
-			createButton.getUI().ifPresent(ui -> ui.navigate(UserDetailView.class, 0));
+			createButton.getUI().ifPresent(ui -> ui.navigate(UserDetailsView.class, 0));
 		}
 		);
 

@@ -1,18 +1,16 @@
 package com.luxoft.cddb;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.luxoft.cddb.beans.UserRoleBean;
 import com.luxoft.cddb.services.IUserSecurityService;
-import com.luxoft.cddb.views.LoginView;
+import com.luxoft.cddb.views.LogoutView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
-import com.vaadin.flow.server.VaadinSession;
 
 public class MainLayout extends AppLayout {
 	
@@ -46,10 +44,7 @@ public class MainLayout extends AppLayout {
 		btn.setText("Logout");
 		btn.addClickListener(e -> {
 			UI ui = UI.getCurrent();
-			VaadinSession session = ui.getSession();
-			session.close();
-			SecurityContextHolder.clearContext();
-			ui.navigate(LoginView.class);
+			ui.navigate(LogoutView.class);
 		});
 		btn.setSizeFull();
 		final Tab    tab   = new Tab(btn);

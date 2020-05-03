@@ -9,14 +9,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.luxoft.cddb.views.Views;
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 
-    private static final String LOGIN_PROCESSING_URL = "/login";
-    private static final String LOGIN_FAILURE_URL = "/login?error";
-    private static final String LOGIN_URL = "/login";
-    private static final String LOGOUT_SUCCESS_URL = "/login";
+	public static final String LOGIN_PROCESSING_URL = "/login";
+    public static final String LOGIN_FAILURE_URL = "/login?error";
+    public static final String LOGIN_URL = "/login";
+    public static final String LOGOUT_URL = "/logout";
+    public static final String LOGOUT_SUCCESS_URL = "/logoutSuccess";
+    
     
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -28,15 +32,18 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
         http.csrf().disable()  
             .requestCache().requestCache(new CustomRequestCache()) 
             .and().authorizeRequests() 
-            .requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll()  
+            .requestMatchers(SecurityUtils::isFrameworkInternalRequest).permitAll()
+            .and().authorizeRequests()
+            .antMatchers("/oauth2/authorization/google").permitAll()
 
             .anyRequest().authenticated() 
 
-            .and().formLogin()  
-            .loginPage(LOGIN_URL).permitAll()
+            .and().formLogin()
+            .loginPage(LOGIN_URL).defaultSuccessUrl(Views.withSlash(Views.DASHBOARD_VIEW)).permitAll()
             .loginProcessingUrl(LOGIN_PROCESSING_URL)  
             .failureUrl(LOGIN_FAILURE_URL)
-            .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL); 
+            .and().logout().logoutSuccessUrl(Views.withSlash(Views.LOGOUT_SUCCESS))//.logoutUrl(LOGOUT_URL)
+            .and().oauth2Login().loginPage("/oauth2/authorization/google").defaultSuccessUrl(Views.withSlash(Views.LOGIN_SUCCESS), true).failureUrl(LOGIN_FAILURE_URL); 
     }
     
     /*

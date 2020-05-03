@@ -21,18 +21,18 @@ import com.vaadin.flow.server.PWA;
 /**
  * The main view contains a button and a click listener.
  */
-@Route(value = "", layout=MainLayout.class)
+@Route(value = Views.DASHBOARD_VIEW, layout=MainLayout.class)
 @PWA(name = "Project Base for Vaadin", shortName = "Project Base", enableInstallPrompt = false)
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
-public class MainView extends VerticalLayout {
+public class DashboardView extends VerticalLayout {
 	
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 4925824383570516595L;
 
-	public MainView(@Autowired IUserService userService) {
+	public DashboardView(@Autowired IUserService userService) {
         // Use TextField for standard text input
         Grid<UserBean> userGrid = new Grid<>(UserBean.class);
         
@@ -59,7 +59,7 @@ public class MainView extends VerticalLayout {
         userGrid.addSelectionListener(selectionEvent -> {
          selectionEvent.getFirstSelectedItem().ifPresent(user -> {
          Notification.show(user.getUsername() + " is selected");
-         userGrid.getUI().get().navigate(UserDetailView.class, user.getId());
+         userGrid.getUI().get().navigate(UserDetailsView.class, user.getId());
          });
         }) ;
         
@@ -68,7 +68,7 @@ public class MainView extends VerticalLayout {
 		        "Create User");
 		createButton.addClickListener(e ->
 		{
-			createButton.getUI().ifPresent(ui -> ui.navigate(UserDetailView.class, 0));
+			createButton.getUI().ifPresent(ui -> ui.navigate(UserDetailsView.class, 0));
 		}
 		);
 

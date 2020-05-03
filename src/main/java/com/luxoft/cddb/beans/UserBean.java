@@ -29,7 +29,8 @@ public class UserBean implements Serializable, UserDetails {
 	
 	public enum UserType {
 		INTERNAL,
-		EXTERNAL
+		LUXOFT,
+		GOOGLE
 	}
 	
     public UserBean() {
@@ -43,6 +44,9 @@ public class UserBean implements Serializable, UserDetails {
     @Column(nullable = false)
 	private String username;
     
+    @Column(nullable = true)
+    private String email;
+
     @Column(nullable = false)
     private UserType type = UserType.INTERNAL;
     
@@ -65,6 +69,13 @@ public class UserBean implements Serializable, UserDetails {
 	}
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public UserType getType() {
 		return type;

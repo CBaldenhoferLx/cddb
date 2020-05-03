@@ -23,9 +23,9 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "userDetail", layout=MainLayout.class)
+@Route(value = Views.USER_DETAILS_VIEW, layout=MainLayout.class)
 @Secured({UserRoleBean.USER_ADMIN})
-public class UserDetailView extends VerticalLayout implements HasUrlParameter<Integer> {
+public class UserDetailsView extends VerticalLayout implements HasUrlParameter<Integer> {
 
 	/**
 	 * 
@@ -41,7 +41,7 @@ public class UserDetailView extends VerticalLayout implements HasUrlParameter<In
 	
 	private boolean isNew = false;
 	
-	public UserDetailView(@Autowired IUserService userService, @Autowired IUserRoleService userRoleService) {
+	public UserDetailsView(@Autowired IUserService userService, @Autowired IUserRoleService userRoleService) {
 		this.userService = userService;
 		
 		binder.setBean(new UserBean());
@@ -69,14 +69,14 @@ public class UserDetailView extends VerticalLayout implements HasUrlParameter<In
 		        "Back");
 		backButton.addClickListener(e ->
 		backButton.getUI().ifPresent(ui ->
-		           ui.navigate(MainView.class))
+		           ui.navigate(DashboardView.class))
 		);
 		
 		Button saveButton = new Button(
 		        "Save");
 		saveButton.addClickListener(e ->
 		{
-			if (binder.getBean().getType()==UserBean.UserType.EXTERNAL) {
+			if (binder.getBean().getType()==UserBean.UserType.INTERNAL) {
 				if (pwField.getValue().length()==0 && !isNew) {
 					// keep pw
 				} else if (pwField.getValue().length()<4) {
@@ -100,7 +100,7 @@ public class UserDetailView extends VerticalLayout implements HasUrlParameter<In
 				}
 				
 				userService.save(binder.getBean());
-				saveButton.getUI().ifPresent(ui -> ui.navigate(MainView.class));
+				saveButton.getUI().ifPresent(ui -> ui.navigate(DashboardView.class));
 			}
 		}
 		);
@@ -123,7 +123,7 @@ public class UserDetailView extends VerticalLayout implements HasUrlParameter<In
 		
 		radioGroup.addValueChangeListener(event -> {
 			UserBean.UserType type = UserBean.convertTypeName(event.getValue());
-			pwField.setVisible(type==UserBean.UserType.EXTERNAL);
+			pwField.setVisible(type==UserBean.UserType.INTERNAL);
 			binder.getBean().setType(type);
 		});
 		
