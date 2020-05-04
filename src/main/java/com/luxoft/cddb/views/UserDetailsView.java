@@ -6,14 +6,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 
-import com.luxoft.cddb.MainLayout;
 import com.luxoft.cddb.beans.UserBean;
 import com.luxoft.cddb.beans.UserRoleBean;
+import com.luxoft.cddb.layouts.MainLayout;
 import com.luxoft.cddb.services.IUserRoleService;
 import com.luxoft.cddb.services.IUserService;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.formlayout.FormLayout.ResponsiveStep;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.listbox.MultiSelectListBox;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -46,18 +50,12 @@ public class UserDetailsView extends VerticalLayout implements HasUrlParameter<I
 		
 		binder.setBean(new UserBean());
 		
-		setSizeFull();
+		//FormLayout detailLayout = new FormLayout();
 		
 		final PasswordField pwField = new PasswordField("Password");
-		final Label pwFieldStatus = new Label();
-		
+		pwField.setPlaceholder(pwField.getLabel());
 		pwField.setVisible(false);
 		
-		pwField.addValueChangeListener(event -> {
-			pwFieldStatus.setText("");
-		});
-		
-
 		userRolesList = new MultiSelectListBox<>();
 		List<String> userRoles = new ArrayList<>();
 		for (UserRoleBean ur : userRoleService.findAll()) {
@@ -65,25 +63,22 @@ public class UserDetailsView extends VerticalLayout implements HasUrlParameter<I
 		}
 		userRolesList.setItems(userRoles);
 		
-		Button backButton = new Button(
-		        "Back");
+		Button backButton = new Button("Back", VaadinIcon.ANGLE_LEFT.create());
 		backButton.addClickListener(e ->
 		backButton.getUI().ifPresent(ui ->
-		           ui.navigate(DashboardView.class))
+		           ui.navigate(UserListView.class))
 		);
 		
-		Button saveButton = new Button(
-		        "Save");
+		Button saveButton = new Button("Save", VaadinIcon.CHECK.create());
 		saveButton.addClickListener(e ->
 		{
 			if (binder.getBean().getType()==UserBean.UserType.INTERNAL) {
 				if (pwField.getValue().length()==0 && !isNew) {
 					// keep pw
 				} else if (pwField.getValue().length()<4) {
-					pwFieldStatus.setText("Password must have at least 4 characters");
+					Notification.show("Password must have at least 4 characters");
 					return;
 				} else {
-					pwFieldStatus.setText("");
 					binder.getBean().setPasswordHash(userService.encodePassword(pwField.getValue()));
 				}
 			} else {
@@ -100,20 +95,20 @@ public class UserDetailsView extends VerticalLayout implements HasUrlParameter<I
 				}
 				
 				userService.save(binder.getBean());
-				saveButton.getUI().ifPresent(ui -> ui.navigate(DashboardView.class));
+				saveButton.getUI().ifPresent(ui -> ui.navigate(UserListView.class));
 			}
 		}
 		);
 		
 		final TextField nameField = new TextField("Name");
-		final Label nameFieldStatus = new Label();
+		nameField.setPlaceholder(nameField.getLabel());
 		
 		binder.forField(nameField)
 			.withValidator(name -> name.length() >= 3, "Name must be at least 3 characters")
 			.withValidationStatusHandler(status -> {
-				nameFieldStatus.setText(status
-		                .getMessage().orElse(""));
-				nameFieldStatus.setVisible(status.isError());
+				if (status.isError()) {
+					Notification.show(status.getMessage().toString());
+				}
 		    })			
 			.bind(UserBean::getUsername, UserBean::setUsername);
 		
@@ -127,7 +122,22 @@ public class UserDetailsView extends VerticalLayout implements HasUrlParameter<I
 			binder.getBean().setType(type);
 		});
 		
-        add(nameFieldStatus, nameField, pwFieldStatus, pwField, radioGroup, userRolesList, backButton, saveButton);
+		FormLayout formLayout = new FormLayout();
+		
+		formLayout.setResponsiveSteps(
+		        new ResponsiveStep("800px", 2)
+		        );
+		
+		formLayout.setMaxWidth("800px");
+		formLayout.add(nameField, 2);
+		formLayout.add(pwField, 2);
+		formLayout.add(radioGroup, 2);
+		formLayout.add(new Label("User Roles"), userRolesList);
+		formLayout.add(backButton, saveButton);
+		
+		//addClassName("centered-content");
+		
+		add(formLayout);
 	}
 
 	@Override

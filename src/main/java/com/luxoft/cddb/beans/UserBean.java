@@ -41,7 +41,7 @@ public class UserBean implements Serializable, UserDetails {
     @GeneratedValue
 	private int id = 0;
     
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
 	private String username;
     
     @Column(nullable = true)

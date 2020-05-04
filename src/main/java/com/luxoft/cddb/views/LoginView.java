@@ -38,26 +38,28 @@ public class LoginView extends VerticalLayout implements HasUrlParameter<String>
 		
 		login.setForgotPasswordButtonVisible(false);
 		
+		/*
 		Button internalLogin = new Button("Internal login");
 		internalLogin.addClickListener(e ->
 		internalLogin.getUI().ifPresent(ui ->
 		           {
 		        	   userSecurityService.internalLogin("test");
 		        	   ui.navigate(DashboardView.class); 
-		           }
-		           )
+		           })
 		);
+		internalLogin.setWidth("320px");
+		*/
 		
 		Button googleLogin = new Button("Google Login", new Icon(VaadinIcon.GOOGLE_PLUS));
 		googleLogin.addClickListener(e ->
-		internalLogin.getUI().ifPresent(ui ->
-        {
-     	   ui.getPage().setLocation("/oauth2/authorization/google"); 
-        }
-        )
-);
+			googleLogin.getUI().ifPresent(ui ->
+	        {
+	     	   ui.getPage().setLocation("/oauth2/authorization/google"); 
+	        })
+		);
+		googleLogin.setWidth("320px");
 		
-		add(new H1("CDDB"), login, internalLogin, googleLogin);
+		add(new H1("CDDB"), login, /*internalLogin,*/ googleLogin);
 	}
 
 	@Override

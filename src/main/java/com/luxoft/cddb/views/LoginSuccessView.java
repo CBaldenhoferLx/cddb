@@ -77,11 +77,12 @@ public class LoginSuccessView extends VerticalLayout implements BeforeEnterObser
 	  		    if (user.isPresent()) {
 	  		    	System.out.println("Oauth2 user " + email + " logging in");
 	  		    	
-	  		    	SecurityUtils.oauth2Login(userService, email);
+	  		    	userService.updateEmail(email, email);
+	  		    	
 	  		    	nextClass = DashboardView.class;
 	  		    } else {
 	  		    	System.out.println("Oauth2 user " + email + " not in DB");
-	  		    	//SecurityUtils.logoutUser();
+	  		    	SecurityUtils.logoutUser();
 	  		    	nextClass = LogoutView.class;
 	  		    }
 	  		}

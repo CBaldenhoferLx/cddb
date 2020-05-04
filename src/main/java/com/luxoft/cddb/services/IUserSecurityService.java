@@ -12,5 +12,7 @@ public interface IUserSecurityService {
 	public boolean hasRole(String role);
 	
 	public void internalLogin(String username);
+	
+	public void listLoggedInUsers();
 
 }

@@ -16,8 +16,12 @@ public interface IUserService {
 	public UserBean get(int id);
 	public void save(UserBean user);
 	
+	public void delete(UserBean user);
+	
 	public void addRole(UserBean user, String userRole);
 	
 	public String encodePassword(String clearPassword);
+	
+	public void updateEmail(String username, String email);
 
 }

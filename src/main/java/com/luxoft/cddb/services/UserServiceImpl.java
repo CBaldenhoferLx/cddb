@@ -91,4 +91,23 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 		return Optional.ofNullable(null);
 	}
 
+	@Override
+	public void updateEmail(String username, String email) {
+		Optional<UserBean> userOpt = findByUsername(username);
+		
+		if (userOpt.isPresent()) {
+			UserBean user = userOpt.get();
+			if (user.getEmail()==null || (user.getEmail()!=null && !user.getEmail().equals(email))) {
+				System.out.println("Updating email of user " + user.getUsername());
+				user.setEmail(email);
+				save(user);
+			}
+		}
+	}
+
+	@Override
+	public void delete(UserBean user) {
+		repository.delete(user);
+	}
+
 }
