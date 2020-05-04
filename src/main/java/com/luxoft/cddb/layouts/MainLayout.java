@@ -3,6 +3,7 @@ package com.luxoft.cddb.layouts;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.luxoft.cddb.beans.UserRoleBean;
+import com.luxoft.cddb.components.UsersOnlineComponent;
 import com.luxoft.cddb.services.IUserSecurityService;
 import com.luxoft.cddb.views.DashboardView;
 import com.luxoft.cddb.views.LogoutView;
@@ -12,11 +13,12 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.JustifyContentMode;
+import com.vaadin.flow.component.page.Push;
 
+@Push
 public class MainLayout extends AppLayout {
 	
 	/**
@@ -35,6 +37,9 @@ public class MainLayout extends AppLayout {
 		Label usernameLabel = new Label(userSecurityService.getCurrentUsername().orElse("No user"));
 		usernameLabel.setWidth("300px");
 		layout.add(usernameLabel);
+
+		UsersOnlineComponent usersOnline = new UsersOnlineComponent();
+		layout.add(usersOnline);
 
 		final Button homeButton = new Button("Home", VaadinIcon.HOME.create());
 		homeButton.addClickListener(e -> {

@@ -36,7 +36,7 @@ public class LoginSuccessView extends VerticalLayout implements BeforeEnterObser
 	private Class<? extends Component> nextClass;
 
 	public LoginSuccessView(@Autowired OAuth2AuthorizedClientService authorizedClientService, @Autowired IUserService userService) {
-    	System.out.println("JUUUUUUHU" + authorizedClientService);
+    	System.out.println("Login " + authorizedClientService);
     	
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	
@@ -59,8 +59,7 @@ public class LoginSuccessView extends VerticalLayout implements BeforeEnterObser
 	  		    headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + client.getAccessToken()
 	  		      .getTokenValue());
 	  		    HttpEntity entity = new HttpEntity("", headers);
-	  		    ResponseEntity <Map>response = restTemplate
-	  		      .exchange(userInfoEndpointUri, HttpMethod.GET, entity, Map.class);
+	  		    ResponseEntity <Map>response = restTemplate.exchange(userInfoEndpointUri, HttpMethod.GET, entity, Map.class);
 	  		    Map userAttributes = response.getBody();
 	  		    
 	  		    System.out.println(userAttributes.size());

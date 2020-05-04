@@ -1,34 +1,45 @@
-package com.luxoft.cddb.views;
+package com.luxoft.cddb.components;
 
 import com.luxoft.cddb.broadcaster.Broadcaster;
 import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.DetachEvent;
+import com.vaadin.flow.component.HasComponents;
+import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.page.Push;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.Registration;
 
-@Push
-@Route("usersOnline")
-public class UsersOnlineView extends Div {
+@Tag("div")
+public class UsersOnlineComponent extends Component implements HasComponents {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1682462711310162469L;
+
 	Button usersButton;
 	
 	Registration broadcasterRegistration;
 	
-	public UsersOnlineView() {
-		usersButton = new Button(VaadinIcon.USER_CARD.create());
+	public UsersOnlineComponent() {
+		usersButton = new Button("0", VaadinIcon.USER_CARD.create());
+		
+		add(usersButton);
 	}
 	
     @Override
     protected void onAttach(AttachEvent attachEvent) {
         UI ui = attachEvent.getUI();
+        
+        ui.setPollInterval(1000);
+        
         broadcasterRegistration = Broadcaster.register(newMessage -> {
-            //ui.access(() -> messages.add(new Span(newMessage)));
+        	ui.access(() -> {
+        		System.out.println("Received message " + newMessage);
+        		usersButton.setText(newMessage);
+        		});
         });
     }
 

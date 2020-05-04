@@ -3,7 +3,7 @@ package com.luxoft.cddb.views;
 public class Views {
 	
 	public static final String LOGIN_SUCCESS = "loginSuccess";
-	public static final String LOGOUT_SUCCESS = "logoutSuccess";
+	public static final String LOGOUT_EXECUTE = "executeLogout";
 	
 	public static final String LOGIN_VIEW = "login";
 	public static final String DASHBOARD_VIEW = "dashboard";

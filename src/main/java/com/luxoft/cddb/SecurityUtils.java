@@ -52,6 +52,7 @@ public final class SecurityUtils {
     }
     
     public static void logoutUser() {
+    	SecurityContextHolder.getContext().setAuthentication(null);
 		SecurityContextHolder.clearContext();
     }    
     

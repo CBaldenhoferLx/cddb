@@ -1,20 +1,19 @@
 package com.luxoft.cddb.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.TestingAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +31,7 @@ public class UserSecurityServiceImpl implements IUserSecurityService {
 	private IUserService userService;
 	
 	@Override
+	@Deprecated
 	public void internalLogin(String username) {
     	System.out.println("INTERNAL LOGIN " + username);
     	SecurityContext context = SecurityContextHolder.createEmptyContext();
@@ -49,23 +49,7 @@ public class UserSecurityServiceImpl implements IUserSecurityService {
 	@Override
 	public Optional<UserBean> getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = null;
-		
-		if (auth instanceof OAuth2AuthenticationToken) {
-			OAuth2User user = ((OAuth2AuthenticationToken)auth).getPrincipal();
-			username = user.getAttribute("email");
-		} else if (auth instanceof UsernamePasswordAuthenticationToken) {
-			UserBean user = (UserBean)((UsernamePasswordAuthenticationToken)auth).getPrincipal();
-			username = user.getUsername();
-		}
-		
-		System.out.println(username);
-		
-		if (username!=null) {
-			return userService.findByUsername(username);
-		} else {
-			return Optional.ofNullable(null);
-		}
+		return getUserFromPrincipal(auth.getPrincipal());
 	}
 
 	@Override
@@ -91,24 +75,38 @@ public class UserSecurityServiceImpl implements IUserSecurityService {
 	}
 	
 	@Override
-    public void listLoggedInUsers() {
+    public Set<UserBean> listLoggedInUsers() {
         final List<Object> allPrincipals = sessionRegistry.getAllPrincipals();
         
         System.out.println("PRINCIPALE: " + allPrincipals.size());
+        
+        Set<UserBean> users = new HashSet<>();
+        Set<String> usernames = new HashSet<>();
 
         for(final Object principal : allPrincipals) {
-        	System.out.println(principal.getClass().getCanonicalName());
-            if(principal instanceof UserBean) {
-                final UserBean user = (UserBean) principal;
-
-                // Do something with user
-                System.out.println(user.getUsername());
-            } else if (principal instanceof DefaultOidcUser) {
-            	final DefaultOidcUser oidUser = (DefaultOidcUser)principal;
-            	
-            	System.out.println(oidUser.toString());
-            }
+        	Optional<UserBean> user = getUserFromPrincipal(principal);
+        	if (user.isPresent()) {
+        		if (!usernames.contains(user.get().getUsername())) {
+            		users.add(user.get());
+            		usernames.add(user.get().getUsername());
+        		} else {
+        			System.out.println("User " + user.get().getUsername() + " already listed - seems to have multiple sessions");
+        		}
+        	}
         }
+        
+        return users;
     }
+
+	@Override
+	public Optional<UserBean> getUserFromPrincipal(Object principal) {
+		if (principal instanceof OAuth2User) {
+			return userService.findByUsername(((OAuth2User)principal).getAttribute("email"));
+		} else if (principal instanceof UserBean) {
+			return Optional.of((UserBean)principal);
+		}
+		
+		return Optional.ofNullable(null);
+	}
 
 }
