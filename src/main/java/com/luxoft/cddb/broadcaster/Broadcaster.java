@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.luxoft.cddb.beans.UserBean;
+import com.luxoft.cddb.beans.user.UserBean;
 import com.luxoft.cddb.services.IUserSecurityService;
 import com.vaadin.flow.shared.Registration;
 
@@ -44,7 +44,7 @@ public class Broadcaster {
         }
     }
     
-	@Scheduled(fixedRate = 5000)
+	@Scheduled(fixedRate = 10000)
 	public void reportCurrentTime() {
 		Set<UserBean> users = userSecurityService.listLoggedInUsers();
 		

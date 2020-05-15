@@ -17,7 +17,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import com.luxoft.cddb.SecurityUtils;
-import com.luxoft.cddb.beans.UserBean;
+import com.luxoft.cddb.beans.user.UserBean;
 import com.luxoft.cddb.services.IUserService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -71,7 +71,7 @@ public class LoginSuccessView extends VerticalLayout implements BeforeEnterObser
 	  		    
 	  		    String email = userAttributes.get("email").toString();
 	  		    
-	  		    Optional<UserBean> user = userService.findByUsername(email);
+	  		    Optional<UserBean> user = userService.findByName(email);
 	  		    
 	  		    if (user.isPresent()) {
 	  		    	System.out.println("Oauth2 user " + email + " logging in");

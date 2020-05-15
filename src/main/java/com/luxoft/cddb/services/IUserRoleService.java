@@ -3,7 +3,7 @@ package com.luxoft.cddb.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.luxoft.cddb.beans.UserRoleBean;
+import com.luxoft.cddb.beans.user.UserRoleBean;
 
 public interface IUserRoleService {
 	

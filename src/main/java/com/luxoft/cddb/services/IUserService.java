@@ -1,22 +1,14 @@
 package com.luxoft.cddb.services;
 
-import java.util.List;
 import java.util.Optional;
 
-import com.luxoft.cddb.beans.UserBean;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface IUserService {
+import com.luxoft.cddb.beans.user.UserBean;
+
+public interface IUserService extends IDefaultService<UserBean>, UserDetailsService {
 	
-	public List<UserBean> findAll();
-	public int getUserCount();
-	
-	public Optional<UserBean> findByUsername(String username);
-	
-	public List<UserBean> fetchUsers(int offset, int limit);
-	public UserBean get(int id);
-	public void save(UserBean user);
-	
-	public void delete(UserBean user);
+	public Optional<UserBean> findByName(String username);
 	
 	public void addRole(UserBean user, String userRole);
 	

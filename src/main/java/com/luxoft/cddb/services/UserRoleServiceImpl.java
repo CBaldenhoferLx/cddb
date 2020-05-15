@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.luxoft.cddb.beans.UserRoleBean;
+import com.luxoft.cddb.beans.user.UserRoleBean;
 import com.luxoft.cddb.repositories.IUserRoleRepository;
 
 @Service
@@ -23,6 +23,12 @@ public class UserRoleServiceImpl implements IUserRoleService {
 	@PostConstruct
 	void setupRoles() {
 		checkCreateRole(UserRoleBean.USER_ADMIN);
+		checkCreateRole(UserRoleBean.DATA_READER);
+		checkCreateRole(UserRoleBean.DATA_WRITER);
+		checkCreateRole(UserRoleBean.DATA_ADMIN);
+		checkCreateRole(UserRoleBean.RELEASE_WRITER);
+		checkCreateRole(UserRoleBean.RELEASE_ADMIN);
+		checkCreateRole(UserRoleBean.EXPORT_ADMIN);
 	}
 	
 	private void checkCreateRole(String role) {

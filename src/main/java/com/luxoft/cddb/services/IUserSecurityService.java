@@ -3,7 +3,7 @@ package com.luxoft.cddb.services;
 import java.util.Optional;
 import java.util.Set;
 
-import com.luxoft.cddb.beans.UserBean;
+import com.luxoft.cddb.beans.user.UserBean;
 
 public interface IUserSecurityService {
 

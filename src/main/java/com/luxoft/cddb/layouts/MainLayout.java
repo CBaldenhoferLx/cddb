@@ -2,10 +2,11 @@ package com.luxoft.cddb.layouts;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.luxoft.cddb.beans.UserRoleBean;
+import com.luxoft.cddb.beans.user.UserRoleBean;
 import com.luxoft.cddb.components.UsersOnlineComponent;
 import com.luxoft.cddb.services.IUserSecurityService;
 import com.luxoft.cddb.views.DashboardView;
+import com.luxoft.cddb.views.DomainListView;
 import com.luxoft.cddb.views.LogoutView;
 import com.luxoft.cddb.views.UserListView;
 import com.vaadin.flow.component.UI;
@@ -49,6 +50,16 @@ public class MainLayout extends AppLayout {
 		homeButton.setWidth(buttonWidth);
 		layout.add(homeButton);
 		
+		if (userSecurityService.hasRole(UserRoleBean.DATA_READER)) {
+			final Button cdButton = new Button("CDs", VaadinIcon.CUBES.create());
+			cdButton.addClickListener(e -> {
+				UI ui = UI.getCurrent();
+				ui.navigate(DomainListView.class);
+			});
+			cdButton.setWidth(buttonWidth);
+			layout.add(cdButton);
+		}
+
 		if (userSecurityService.hasRole(UserRoleBean.USER_ADMIN)) {
 			final Button usersButton = new Button("Users", VaadinIcon.USERS.create());
 			usersButton.addClickListener(e -> {

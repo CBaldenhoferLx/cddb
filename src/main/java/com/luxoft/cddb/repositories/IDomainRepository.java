@@ -3,9 +3,9 @@ package com.luxoft.cddb.repositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.luxoft.cddb.beans.user.UserBean;
+import com.luxoft.cddb.beans.structure.DomainBean;
 
 @Repository
-public interface IUserRepository extends CrudRepository<UserBean, Integer> {
+public interface IDomainRepository extends CrudRepository<DomainBean, Integer> {
 
 }

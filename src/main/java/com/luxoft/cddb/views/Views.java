@@ -11,6 +11,11 @@ public class Views {
 	public static final String USER_LIST_VIEW = "users";
 	public static final String USER_DETAILS_VIEW = "userDetails";
 	
+	public static final String DOMAIN_LIST_VIEW = "domains";
+	public static final String DOMAIN_DETAILS_VIEW = "domainDetails";
+
+	public static final String CD_EDITOR_VIEW = "cdEditor";
+
 	public static String withSlash(String url) {
 		return "/" + url;
 	}

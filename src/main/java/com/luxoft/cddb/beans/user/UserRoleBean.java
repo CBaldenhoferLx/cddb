@@ -1,4 +1,4 @@
-package com.luxoft.cddb.beans;
+package com.luxoft.cddb.beans.user;
 
 import java.io.Serializable;
 
@@ -18,6 +18,12 @@ public class UserRoleBean implements Serializable {
 	private static final long serialVersionUID = 2895305620948348260L;
 
 	public static final String USER_ADMIN = "USER_ADMIN";
+	public static final String DATA_READER = "DATA_READER";
+	public static final String DATA_WRITER = "DATA_WRITER";
+	public static final String DATA_ADMIN = "DATA_ADMIN";
+	public static final String RELEASE_WRITER = "RELEASE_WRITER";
+	public static final String RELEASE_ADMIN = "RELEASE_ADMIN";
+	public static final String EXPORT_ADMIN = "EXPORT_ADMIN";
 	
 	public UserRoleBean() {
 		super();

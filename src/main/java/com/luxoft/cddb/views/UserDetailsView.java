@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 
-import com.luxoft.cddb.beans.UserBean;
-import com.luxoft.cddb.beans.UserRoleBean;
+import com.luxoft.cddb.beans.user.UserBean;
+import com.luxoft.cddb.beans.user.UserRoleBean;
 import com.luxoft.cddb.layouts.MainLayout;
 import com.luxoft.cddb.services.IUserRoleService;
 import com.luxoft.cddb.services.IUserService;

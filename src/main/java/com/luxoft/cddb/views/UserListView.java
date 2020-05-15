@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.luxoft.cddb.beans.UserBean;
+import com.luxoft.cddb.beans.user.UserBean;
 import com.luxoft.cddb.layouts.MainLayout;
 import com.luxoft.cddb.services.IUserService;
 import com.vaadin.flow.component.button.Button;
@@ -51,11 +51,11 @@ public class UserListView extends VerticalLayout {
         		query -> {
                     int offset = query.getOffset();
                     int limit = query.getLimit();
-                    final List<UserBean> users = userService.fetchUsers(offset, limit);
+                    final List<UserBean> users = userService.findAll(offset, limit);
         			return users.stream();
         		},
         		query -> {
-        			return userService.getUserCount();
+        			return userService.getCount();
         		}
         		);
         	    		

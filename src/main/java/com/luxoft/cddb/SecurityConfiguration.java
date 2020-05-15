@@ -25,7 +25,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
-import com.luxoft.cddb.beans.UserBean;
+import com.luxoft.cddb.beans.user.UserBean;
 import com.luxoft.cddb.services.IUserService;
 import com.luxoft.cddb.views.Views;
 
@@ -86,7 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 			Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
 			
-			Optional<UserBean> user = userService.findByUsername(oidcUser.getEmail());
+			Optional<UserBean> user = userService.findByName(oidcUser.getEmail());
 			
 			if (user.isPresent()) {
 				for (GrantedAuthority auth : user.get().getAuthorities()) {

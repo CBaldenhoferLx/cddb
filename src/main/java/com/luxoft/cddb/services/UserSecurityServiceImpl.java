@@ -17,8 +17,8 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.luxoft.cddb.beans.UserBean;
-import com.luxoft.cddb.beans.UserRoleBean;
+import com.luxoft.cddb.beans.user.UserBean;
+import com.luxoft.cddb.beans.user.UserRoleBean;
 import com.vaadin.flow.server.VaadinSession;
 
 @Service
@@ -101,7 +101,7 @@ public class UserSecurityServiceImpl implements IUserSecurityService {
 	@Override
 	public Optional<UserBean> getUserFromPrincipal(Object principal) {
 		if (principal instanceof OAuth2User) {
-			return userService.findByUsername(((OAuth2User)principal).getAttribute("email"));
+			return userService.findByName(((OAuth2User)principal).getAttribute("email"));
 		} else if (principal instanceof UserBean) {
 			return Optional.of((UserBean)principal);
 		}
