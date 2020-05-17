@@ -1,6 +1,5 @@
 package com.luxoft.cddb.beans.user;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -11,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -20,15 +17,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.luxoft.cddb.beans.Identifyable;
+
+@SuppressWarnings("serial")
 @Entity
 @Table(name="users")
-public class UserBean implements Serializable, UserDetails {
+public class UserBean extends Identifyable implements UserDetails {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8439624951918120235L;
-	
 	public enum UserType {
 		INTERNAL,
 		LUXOFT,
@@ -38,10 +33,6 @@ public class UserBean implements Serializable, UserDetails {
     public UserBean() {
 		super();
 	}
-    
-	@Id
-    @GeneratedValue
-	private int id = 0;
     
     @Column(nullable = false, unique = true)
 	private String username;
@@ -59,13 +50,6 @@ public class UserBean implements Serializable, UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleBean> userRoles = new ArrayList<>();
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	@Override
 	public String getUsername() {
 		return username;

@@ -1,4 +1,4 @@
-package com.luxoft.cddb.services;
+package com.luxoft.cddb.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.luxoft.cddb.beans.user.UserRoleBean;
 import com.luxoft.cddb.repositories.IUserRoleRepository;
+import com.luxoft.cddb.services.IUserRoleService;
 
 @Service
 public class UserRoleServiceImpl implements IUserRoleService {

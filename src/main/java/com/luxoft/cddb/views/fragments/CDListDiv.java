@@ -6,13 +6,9 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
+@SuppressWarnings("serial")
 public class CDListDiv extends Div {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 583473751244269836L;
-
 	private Grid<ElementBean> grid;
 	
 	public CDListDiv() {

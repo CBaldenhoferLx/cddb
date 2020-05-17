@@ -106,7 +106,7 @@ public class DomainDetailsView extends VerticalLayout implements HasUrlParameter
 	@Override
 	public void setParameter(BeforeEvent event, Integer parameter) {
 		if (parameter>0) {
-			DomainBean domain = domainService.get(parameter);
+			DomainBean domain = domainService.findById(parameter);
 				
 			if (event.getLocation().getQueryParameters().getParameters().containsKey("new")) {
 				DomainBean newDomain = new DomainBean();

@@ -1,9 +1,11 @@
-package com.luxoft.cddb.services;
+package com.luxoft.cddb.services.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+
+import com.luxoft.cddb.services.IDefaultService;
 
 public class DefaultServiceImpl<BEANTYPE, REPOSITORYTYPE extends CrudRepository<BEANTYPE, Integer>> implements IDefaultService<BEANTYPE> {
 	
@@ -21,13 +23,13 @@ public class DefaultServiceImpl<BEANTYPE, REPOSITORYTYPE extends CrudRepository<
 	}
 
 	@Override
-	public int getCount() {
+	public int count() {
 		return (int) repository.count();
 	}
 
 	@Override
-	public BEANTYPE get(int id) {
-		return repository.findById(id).get();
+	public BEANTYPE findById(int id) {
+		return repository.findById(id).orElse(null);
 	}
 
 	@Override

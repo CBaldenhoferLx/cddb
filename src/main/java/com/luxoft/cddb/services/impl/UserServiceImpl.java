@@ -1,4 +1,4 @@
-package com.luxoft.cddb.services;
+package com.luxoft.cddb.services.impl;
 
 import java.util.Optional;
 
@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.luxoft.cddb.beans.user.UserBean;
 import com.luxoft.cddb.beans.user.UserRoleBean;
 import com.luxoft.cddb.repositories.IUserRepository;
+import com.luxoft.cddb.services.IUserRoleService;
+import com.luxoft.cddb.services.IUserService;
 
 @Service
 public class UserServiceImpl extends DefaultServiceImpl<UserBean, IUserRepository> implements IUserService {

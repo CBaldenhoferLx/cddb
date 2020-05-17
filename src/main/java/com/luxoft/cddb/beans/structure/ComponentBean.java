@@ -9,4 +9,14 @@ import com.luxoft.cddb.beans.DefaultBean;
 @Table(name = "cd_components")
 public class ComponentBean extends DefaultBean {
 
+	public ComponentBean() {
+		super();
+	}
+
+	public ComponentBean(String name) {
+		super(name);
+	}
+	
+	
+
 }

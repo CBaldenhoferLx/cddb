@@ -9,9 +9,9 @@ import com.luxoft.cddb.beans.structure.DomainBean;
 import com.luxoft.cddb.beans.structure.FeatureSetBean;
 
 @Repository
-public interface IDomainRepository extends IDefaultRepository<DomainBean> {
-	
-	@Query("SELECT d FROM DomainBean d WHERE d.parentDomain IS NULL")
-	List<DomainBean> findRoots();
-	
+public interface IFeatureSetRepository extends IDefaultRepository<FeatureSetBean> {
+
+	@Query("SELECT fs FROM FeatureSetBean fs WHERE fs.domain=?1")
+	List<FeatureSetBean> findAll(DomainBean parentDomain);
+
 }

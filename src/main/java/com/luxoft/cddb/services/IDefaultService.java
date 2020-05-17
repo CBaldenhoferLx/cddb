@@ -7,9 +7,9 @@ public interface IDefaultService<BEANTYPE> {
 	public List<BEANTYPE> findAll();
 	public List<BEANTYPE> findAll(int offset, int limit);
 	
-	public int getCount();
+	public int count();
 
-	public BEANTYPE get(int id);
+	public BEANTYPE findById(int id);
 	public void save(BEANTYPE bean);
 	public void delete(BEANTYPE bean);
 

@@ -6,13 +6,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 
+@SuppressWarnings("serial")
 @Route(value=Views.LOGOUT_EXECUTE)
 public class LogoutView extends VerticalLayout {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4582174915859565832L;
 	
 	public LogoutView() {
 		VaadinSession.getCurrent().getSession().invalidate();

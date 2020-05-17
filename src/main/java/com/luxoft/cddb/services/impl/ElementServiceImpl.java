@@ -1,4 +1,4 @@
-package com.luxoft.cddb.services;
+package com.luxoft.cddb.services.impl;
 
 import org.springframework.stereotype.Service;
 

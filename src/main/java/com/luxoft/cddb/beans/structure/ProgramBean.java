@@ -9,4 +9,14 @@ import com.luxoft.cddb.beans.DefaultBean;
 @Table(name="cd_programs")
 public class ProgramBean extends DefaultBean {
 
+	public ProgramBean() {
+		super();
+	}
+
+	public ProgramBean(String name) {
+		super(name);
+	}
+	
+	
+
 }

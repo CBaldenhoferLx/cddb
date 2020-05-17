@@ -20,17 +20,13 @@ import com.vaadin.flow.router.Route;
 /**
  * The main view contains a button and a click listener.
  */
+@SuppressWarnings("serial")
 @Route(value = Views.USER_LIST_VIEW, layout=MainLayout.class)
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 public class UserListView extends VerticalLayout {
 	
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 4925824383570516595L;
-	
-	private IUserService userService;
+    private IUserService userService;
 	
 	private Grid<UserBean> userGrid;
 
@@ -55,7 +51,7 @@ public class UserListView extends VerticalLayout {
         			return users.stream();
         		},
         		query -> {
-        			return userService.getCount();
+        			return userService.count();
         		}
         		);
         	    		

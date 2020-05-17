@@ -18,14 +18,11 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
 
+@SuppressWarnings("serial")
 @Route(value = Views.LOGIN_VIEW) 
 @PageTitle("Login | CDDB")
 public class LoginView extends VerticalLayout implements HasUrlParameter<String> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -297053990467142453L;
 	private LoginForm login = new LoginForm(); 
 
 	public LoginView(@Autowired IUserService userService, @Autowired IUserSecurityService userSecurityService){

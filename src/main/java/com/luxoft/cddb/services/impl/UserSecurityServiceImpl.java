@@ -1,4 +1,4 @@
-package com.luxoft.cddb.services;
+package com.luxoft.cddb.services.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import com.luxoft.cddb.beans.user.UserBean;
 import com.luxoft.cddb.beans.user.UserRoleBean;
+import com.luxoft.cddb.services.IUserSecurityService;
+import com.luxoft.cddb.services.IUserService;
 import com.vaadin.flow.server.VaadinSession;
 
 @Service

@@ -19,13 +19,9 @@ import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.page.Push;
 
+@SuppressWarnings("serial")
 @Push
 public class MainLayout extends AppLayout {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2073405529644686890L;
 	
 	private static final String buttonWidth = "300px"; 
 	

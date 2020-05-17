@@ -8,21 +8,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.luxoft.cddb.beans.Identifyable;
 import com.luxoft.cddb.beans.JpaConstants;
 import com.luxoft.cddb.beans.structure.FeatureSetBean;
 import com.luxoft.cddb.beans.user.UserBean;
 
 @Entity
 @Table(name="cd_elements")
-public class ElementBean {
+public class ElementBean extends Identifyable {
 	
 	enum ElementStatus {
 		NEW,
@@ -45,10 +44,6 @@ public class ElementBean {
 		CONTAINER,
 		CONTAINER_1
 	}
-	
-	@Id
-	@GeneratedValue
-	private int id = 0;
 	
 	@ManyToOne(optional = false)
 	private FeatureSetBean featureSet;
@@ -115,14 +110,6 @@ public class ElementBean {
 	
 	@Column(columnDefinition = "text", nullable = true)
 	private String if1;	
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 	
 	public String getUniqueId() {
 		return uniqueId;

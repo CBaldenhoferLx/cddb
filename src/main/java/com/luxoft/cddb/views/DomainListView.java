@@ -1,9 +1,6 @@
 package com.luxoft.cddb.views;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -17,24 +14,15 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.treegrid.TreeGrid;
-import com.vaadin.flow.data.provider.CallbackDataProvider;
-import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.provider.hierarchy.AbstractBackEndHierarchicalDataProvider;
-import com.vaadin.flow.data.provider.hierarchy.HierarchicalDataProvider;
-import com.vaadin.flow.data.provider.hierarchy.HierarchicalQuery;
 import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteConfiguration;
 
+@SuppressWarnings("serial")
 @Route(value = Views.DOMAIN_LIST_VIEW, layout=MainLayout.class)
 @Secured({UserRoleBean.DATA_READER})
 public class DomainListView extends VerticalLayout {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6745370994277379046L;
-	
 	private TreeGrid<DomainBean> domainGrid;
 
 	public DomainListView(@Autowired IDomainService domainService) {

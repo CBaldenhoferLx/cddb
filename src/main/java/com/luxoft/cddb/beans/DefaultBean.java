@@ -1,18 +1,12 @@
 package com.luxoft.cddb.beans;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OrderBy;
-import javax.persistence.OrderColumn;
 
 @MappedSuperclass
-public class DefaultBean {
+public class DefaultBean extends Identifyable {
 	
-	@Id
-	@GeneratedValue
-	private int id = 0;
 	
 	@Column(nullable = false, length = JpaConstants.TEXT_MID)
 	@OrderBy
@@ -25,14 +19,6 @@ public class DefaultBean {
 	public DefaultBean(String name) {
 		super();
 		this.name = name;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {

@@ -27,16 +27,12 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 
+@SuppressWarnings("serial")
 @Route(value = Views.USER_DETAILS_VIEW, layout=MainLayout.class)
 @Secured({UserRoleBean.USER_ADMIN})
 public class UserDetailsView extends VerticalLayout implements HasUrlParameter<Integer> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2151911196421896767L;
-	
-	Binder<UserBean> binder = new Binder<>(UserBean.class);
+	private Binder<UserBean> binder = new Binder<>(UserBean.class);
 	
 	private IUserService userService;
 	
@@ -143,7 +139,7 @@ public class UserDetailsView extends VerticalLayout implements HasUrlParameter<I
 	@Override
 	public void setParameter(BeforeEvent event, Integer parameter) {
 		if (parameter>0) {
-			UserBean user = userService.get(parameter);
+			UserBean user = userService.findById(parameter);
 			binder.setBean(user);
 			
 			userRolesList.deselectAll();

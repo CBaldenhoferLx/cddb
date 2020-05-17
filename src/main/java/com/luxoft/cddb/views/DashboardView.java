@@ -15,17 +15,13 @@ import com.vaadin.flow.server.PWA;
 /**
  * The main view contains a button and a click listener.
  */
+@SuppressWarnings("serial")
 @Route(value = Views.DASHBOARD_VIEW, layout=MainLayout.class)
 @PWA(name = "Project Base for Vaadin", shortName = "Project Base", enableInstallPrompt = false)
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 public class DashboardView extends SplitLayout {
 	
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 4925824383570516595L;
-
 	public DashboardView(@Autowired IUserService userService) {
         // Use TextField for standard text input
 		

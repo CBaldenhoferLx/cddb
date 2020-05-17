@@ -11,14 +11,10 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.shared.Registration;
 
+@SuppressWarnings("serial")
 @Tag("div")
 public class UsersOnlineComponent extends Component implements HasComponents {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1682462711310162469L;
-
 	Button usersButton;
 	
 	Registration broadcasterRegistration;

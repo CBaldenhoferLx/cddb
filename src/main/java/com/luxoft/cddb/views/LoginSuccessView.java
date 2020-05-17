@@ -25,13 +25,9 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 
+@SuppressWarnings("serial")
 @Route(value = Views.LOGIN_SUCCESS)
 public class LoginSuccessView extends VerticalLayout implements BeforeEnterObserver {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1467436920533508109L;
 	
 	private Class<? extends Component> nextClass;
 
