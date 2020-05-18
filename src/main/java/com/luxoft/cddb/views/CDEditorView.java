@@ -1,8 +1,13 @@
 package com.luxoft.cddb.views;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.luxoft.cddb.beans.structure.DomainBean;
+import com.luxoft.cddb.beans.structure.FeatureSetBean;
 import com.luxoft.cddb.layouts.MainLayout;
+import com.luxoft.cddb.services.IDomainService;
 import com.luxoft.cddb.services.IFeatureSetService;
 import com.luxoft.cddb.views.fragments.CDElementDiv;
 import com.luxoft.cddb.views.fragments.CDListDiv;
@@ -22,12 +27,16 @@ import com.vaadin.flow.router.Route;
 @SuppressWarnings("serial")
 @Route(value = Views.CD_EDITOR_VIEW, layout=MainLayout.class)
 public class CDEditorView extends SplitLayout implements HasUrlParameter<Integer> {
+	
+	private IDomainService domainService;
 
 	private Tabs tabs;
 	private CDListDiv listDiv;
 	private CDVisualDiv visualDiv;
 	
 	private CDElementDiv elementDiv;
+	
+	private DomainBean parentDomain;
 	
 	public enum EditMode {
 		TABLE,
@@ -36,17 +45,23 @@ public class CDEditorView extends SplitLayout implements HasUrlParameter<Integer
 	
 	private EditMode currentEditMode = EditMode.TABLE;
 	
-	public CDEditorView(@Autowired IFeatureSetService featureSetService) {
+	public CDEditorView(@Autowired IDomainService domainService, @Autowired IFeatureSetService featureSetService) {
+		
+		this.domainService = domainService;
 		
 		Button createNewFeature = new Button(VaadinIcon.PLUS.create());
 		
-		Tab visualTab = new Tab("Test");
+		tabs = new Tabs();
+
+		List<FeatureSetBean> featureSets = featureSetService.findAll(parentDomain);
+		for (FeatureSetBean fs : featureSets) {
+			Tab tab = new Tab(fs.getName());
+			tabs.add(tab);
+		}
 		
 		listDiv = new CDListDiv();
 		visualDiv = new CDVisualDiv();
 		setEditMode(currentEditMode);
-		
-		tabs = new Tabs(visualTab);
 		
 		tabs.addSelectedChangeListener(event -> {
 		    // TODO: tabs.getSelectedTab());
@@ -82,8 +97,7 @@ public class CDEditorView extends SplitLayout implements HasUrlParameter<Integer
 
 	@Override
 	public void setParameter(BeforeEvent event, Integer parameter) {
-		// TODO Auto-generated method stub
-		
+		parentDomain = domainService.findById(parameter);
 	}
 	
 	public void setEditMode(EditMode newMode) {

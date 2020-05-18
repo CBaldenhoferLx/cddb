@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.luxoft.cddb.beans.structure.DomainBean;
-import com.luxoft.cddb.beans.structure.FeatureSetBean;
 
 @Repository
 public interface IDomainRepository extends IDefaultRepository<DomainBean> {
