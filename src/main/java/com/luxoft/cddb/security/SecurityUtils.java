@@ -1,4 +1,4 @@
-package com.luxoft.cddb;
+package com.luxoft.cddb.security;
 
 import java.util.Arrays;
 import java.util.List;

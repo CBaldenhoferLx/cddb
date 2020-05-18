@@ -1,9 +1,9 @@
-package com.luxoft.cddb;
-
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+package com.luxoft.cddb.security;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 class CustomRequestCache extends HttpSessionRequestCache {
 

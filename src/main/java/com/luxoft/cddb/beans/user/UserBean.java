@@ -34,7 +34,13 @@ public class UserBean extends Identifyable implements UserDetails {
 		super();
 	}
     
-    @Column(nullable = false, unique = true)
+    public UserBean(String username, UserType type) {
+		super();
+		this.username = username;
+		this.type = type;
+	}
+
+	@Column(nullable = false, unique = true)
 	private String username;
     
     @Column(nullable = true)

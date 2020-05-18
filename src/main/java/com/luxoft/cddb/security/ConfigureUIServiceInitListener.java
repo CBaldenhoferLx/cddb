@@ -1,4 +1,4 @@
-package com.luxoft.cddb;
+package com.luxoft.cddb.security;
 
 import org.springframework.stereotype.Component;
 

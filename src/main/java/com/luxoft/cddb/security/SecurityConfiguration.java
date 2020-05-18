@@ -1,4 +1,4 @@
-package com.luxoft.cddb;
+package com.luxoft.cddb.security;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
@@ -89,9 +90,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			Optional<UserBean> user = userService.findByName(oidcUser.getEmail());
 			
 			if (user.isPresent()) {
+				if (user.get().getAuthorities().isEmpty()) throw new UsernameNotFoundException("User has no roles");
+
+				
 				for (GrantedAuthority auth : user.get().getAuthorities()) {
 					mappedAuthorities.add(auth);
 				}
+			} else {
+				throw new UsernameNotFoundException("User not found");
 			}
 			
 			oidcUser = new DefaultOidcUser(mappedAuthorities, oidcUser.getIdToken(), oidcUser.getUserInfo());

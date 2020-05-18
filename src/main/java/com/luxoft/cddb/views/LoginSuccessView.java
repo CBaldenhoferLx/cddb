@@ -16,8 +16,8 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import com.luxoft.cddb.SecurityUtils;
 import com.luxoft.cddb.beans.user.UserBean;
+import com.luxoft.cddb.security.SecurityUtils;
 import com.luxoft.cddb.services.IUserService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
